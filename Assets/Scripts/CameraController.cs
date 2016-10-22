@@ -3,7 +3,7 @@ using System.Collections;
 
 public class CameraController : MonoBehaviour {
 
-    float speed = 5.0f;
+    float speed = 2.0f;
 
 	// Use this for initialization
 	void Start () {
