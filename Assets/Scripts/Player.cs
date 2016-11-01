@@ -60,7 +60,7 @@ public class Player : MonoBehaviour {
     //Parbuda vai player ir uz zemi
     void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.CompareTag("Roof"))
+        if (col.CompareTag("Roof") || col.CompareTag("Bank"))
         {
             grounded = true;
         }
@@ -68,7 +68,7 @@ public class Player : MonoBehaviour {
     //Parbuda vai player ir uz zemi
     void OnTriggerStay2D(Collider2D col)
     {
-        if (col.CompareTag("Roof"))
+        if (col.CompareTag("Roof") || col.CompareTag("Bank"))
         {
             grounded = true;
         }
@@ -76,7 +76,7 @@ public class Player : MonoBehaviour {
     //Parbuda vai player ir uz zemi
     void OnTriggerExit2D(Collider2D col)
     {
-        if (col.CompareTag("Roof"))
+        if (col.CompareTag("Roof") || col.CompareTag("Bank"))
         {
             grounded = false;
         }
