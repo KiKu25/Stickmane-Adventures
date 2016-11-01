@@ -8,6 +8,7 @@ public class Player : MonoBehaviour {
     public float jumpPower = 150f;  //Leksanas speks
 
     public bool grounded;   //Lai zinatu vai player ir uz zemes
+    public bool hasBag { get; set; } 
 
     Rigidbody2D rb2d;   //Player rigedbody
 
@@ -15,6 +16,7 @@ public class Player : MonoBehaviour {
 	void Start () {
 
         rb2d = GetComponent<Rigidbody2D>();     //Dabu player rigedbody
+        hasBag = false;
 	}
 
     void Update()
