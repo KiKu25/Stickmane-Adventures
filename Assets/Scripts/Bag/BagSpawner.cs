@@ -5,16 +5,13 @@ public class BagSpawner : MonoBehaviour {
 
     public int maxBags;
 
-    float x;
-    float y;
-    float z;
+    public float minX;
+    public float maxX;
 
+    public Transform bag;
+    
 	// Use this for initialization
 	void Start () {
-        x = transform.position.x;
-        y = transform.position.y;
-        z = transform.position.z;
-
         spawnBags(maxBags);
 	}
 	
@@ -25,6 +22,11 @@ public class BagSpawner : MonoBehaviour {
 
     void spawnBags(int spawnCount = 6)
     {
-        
+        for (int i = 0; i < spawnCount; i++)
+        { 
+            Instantiate(bag, new Vector3(transform.position.x + Random.Range(minX, maxX), transform.position.y + 0.5f, transform.position.z), Quaternion.identity);
+        }
     }
 }
+
+

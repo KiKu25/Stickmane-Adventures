@@ -16,6 +16,7 @@ public class RoofSpawner : MonoBehaviour
     public int maxRoofs;      //Lai zinatu maxRoofs
 
     public Transform roofTemp;      //Pagaidu roofPrefab
+    public Transform lastRoofTemp;
 
     Vector3 lastRoofSpawnPosition;      //Lai zinatu kur spaned last roof
 
@@ -42,5 +43,6 @@ public class RoofSpawner : MonoBehaviour
             Instantiate(roofTemp, nextSpawn, Quaternion.identity);      //Spawn roof uz random position, notiktos ierobezojumos
             lastRoofSpawnPosition = nextSpawn;
         }
+        Instantiate(lastRoofTemp, new Vector3(lastRoofSpawnPosition.x + Random.Range(minRoofOffset, maxRoofOffset), Random.Range(minRoofY, maxRoofY), 0), Quaternion.identity);
     }
 }

@@ -4,6 +4,7 @@ using System.Collections;
 public class Bag : MonoBehaviour
 {
     public Collider2D col1;
+    public Collider2D col2;
 
     public int money { get; set; }
 
@@ -17,6 +18,8 @@ public class Bag : MonoBehaviour
         player = (GameObject.FindGameObjectWithTag("Player")).GetComponent<Player>();
 
         rd2d = GetComponent<Rigidbody2D>();
+
+        money = 45000;
     }
 
     // Update is called once per frame
@@ -31,11 +34,13 @@ public class Bag : MonoBehaviour
         { 
             if (player.hasBag == false)
             {
-                Debug.Log("Setting parent");
                 transform.SetParent((GameObject.FindGameObjectWithTag("Player")).transform);
                 transform.localPosition = new Vector3(-0.512f, 0.063f, 0);
                 transform.localEulerAngles = new Vector3(0, 0, 87.475f);
+                player.hasBag = true;
                 col1.enabled = false;
+                col2.enabled = false;
+                rd2d.isKinematic = true;
             }
         }
     }
