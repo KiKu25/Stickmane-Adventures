@@ -14,35 +14,52 @@ public class RoofSpawner : MonoBehaviour
     public int maxRoofOffset = 20;
 
     public int maxRoofs;      //Lai zinatu maxRoofs
+    public int maxBackgrounds;      //Lai zinatu cik maxBackrounds 
+
+    float spriteWidthNextSpawn;
 
     public Transform roofTemp;      //Pagaidu roofPrefab
-    public Transform lastRoofTemp;
+    public Transform lastRoofTemp;      //Pedejais roof ar dropoff
+    public Transform background;        //Backround
 
-    Vector3 lastRoofSpawnPosition;      //Lai zinatu kur spaned last roof
+    SpriteRenderer backgroundSprite;    //Lai varetu uzinat sprite size
 
     // Use this for initialization
     void Start()
     {
-        Instantiate(roofTemp, new Vector3(18, roofNormalHight, 0), Quaternion.identity);     //Spawn pirmo roof uz x = 18, y = -14
-        lastRoofSpawnPosition = new Vector3(18, roofNormalHight, 0);     //Saglaba pedeja roof 
-        SpawnRoofs(maxRoofs);
-    }
+        SpawnRoofs(maxRoofs);   //Call spawnRoof
 
-
-    void Update()
-    {
-
-    }
-
-    //Spawn roof ik pec notiekta laika
-    void SpawnRoofs(int maxRoofs = 15)
-    {
-        for (int i = 0; i <= maxRoofs; i++)
+        if (background != null)     //Parbauda vai backround nav null
         {
-            Vector3 nextSpawn = new Vector3(lastRoofSpawnPosition.x + Random.Range(minRoofOffset, maxRoofOffset), Random.Range(minRoofY, maxRoofY), 0);     //Izvelas rangom position, notiktos ierobezojumos, lai zintu kur spawn roof
-            Instantiate(roofTemp, nextSpawn, Quaternion.identity);      //Spawn roof uz random position, notiktos ierobezojumos
-            lastRoofSpawnPosition = nextSpawn;
+            backgroundSprite = background.GetComponent<SpriteRenderer>();   //Dabu backround sprite
+            spriteWidthNextSpawn = backgroundSprite.sprite.rect.width / 28.926f;    //Uzina background makoso spawn offset
+            SpawnBackground(maxBackgrounds);    //Call spawnBackground
         }
-        Instantiate(lastRoofTemp, new Vector3(lastRoofSpawnPosition.x + Random.Range(minRoofOffset, maxRoofOffset), Random.Range(minRoofY, maxRoofY), 0), Quaternion.identity);
+    }
+
+    //Spawn roof ik pec notiekta offset
+    void SpawnRoofs(int maxRoofs = 10)
+    {
+        Vector3 spawn = new Vector3(18, roofNormalHight, 0);    //Lai zinatu kura soawnRoofs
+
+        for (int i = 0; i < maxRoofs; i++)  //SpawnRoofs noteikut skaitu
+        {
+            Instantiate(roofTemp, spawn, Quaternion.identity);  //spawnRoof 
+            spawn = new Vector3(spawn.x + Random.Range(minRoofOffset, maxRoofOffset), Random.Range(minRoofY, maxRoofY), 0);     //Saglaba nakoso Vector3
+        }
+
+        Instantiate(lastRoofTemp, spawn, Quaternion.identity);  //spawnLast roof
+    }
+
+    //Spawn backround ik pec notiekta offset
+    void SpawnBackground(int maxBackground = 6)
+    {
+        Vector3 spawn = new Vector3(0, 0, 0);   //Pirma backround Vector3
+
+        for (int i = 0; i < maxBackground; i++)     //SpawnBackground notiektu skaitu
+        { 
+            Instantiate(background, spawn, Quaternion.identity);    //SpanwBackround
+            spawn = new Vector3(spawn.x + spriteWidthNextSpawn, 0, 0);      //Saglaba nakos spawn Vector3
+        }
     }
 }
