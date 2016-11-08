@@ -9,21 +9,41 @@ public class Player : MonoBehaviour {
 
     public bool grounded;   //Lai zinatu vai player ir uz zemes
     public bool hasBag { get; set; } 
+    public bool facingRight { get; protected set; }
 
     Rigidbody2D rb2d;   //Player rigedbody
+
+    Animator anim;
 
 	// Use this for initialization
 	void Start () {
 
         rb2d = GetComponent<Rigidbody2D>();     //Dabu player rigedbody
+        anim = GetComponent<Animator>();
         hasBag = false;
 	}
 
     void Update()
     {
+        anim.SetBool("Grounded", grounded);
+        anim.SetFloat("Speed", Mathf.Abs(rb2d.velocity.x));
+
+        //TODO: Remove this
         if (Input.GetKey("escape"))
         {
             Application.Quit();
+        }
+
+        if (Input.GetAxis("Horizontal") < -0.1f)
+        {
+            transform.localRotation = Quaternion.Euler(0, 180, 0);
+            facingRight = false;
+        }
+
+        if (Input.GetAxis("Horizontal") > 0.1f)
+        {
+            transform.localRotation = Quaternion.Euler(0, 0, 0);
+            facingRight = true;
         }
 
         //Ja uz zemes tad var lekt
