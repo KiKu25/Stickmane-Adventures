@@ -29,7 +29,7 @@ public class Player : MonoBehaviour {
         anim.SetFloat("Speed", Mathf.Abs(rb2d.velocity.x));
 
         //TODO: Remove this
-        if (Input.GetKey("escape"))
+        if (Input.GetKeyDown("escape"))
         {
             Application.Quit();
         }
