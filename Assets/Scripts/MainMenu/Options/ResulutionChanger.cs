@@ -7,12 +7,12 @@ public class ResulutionChanger : MonoBehaviour {
 
     Dropdown dropdown;
 
-    int selectedRes = 0;
-    int resX;
-    int resY;
+    int selectedRes;
+    int resWidth;
+    int resHeight;
     int refreshRate;
 
-    bool fullscreened = true;
+    public bool isFullscreened { get; set; }
 
     //MainMenuController refrance
     MainMenuController mainMenuC;
@@ -23,6 +23,10 @@ public class ResulutionChanger : MonoBehaviour {
 
         //Atrod MainMenuController
         mainMenuC = transform.parent.parent.gameObject.GetComponent<MainMenuController>();
+
+        resWidth = Screen.width;
+        resHeight = Screen.height;
+        isFullscreened = Screen.fullScreen;
     }
 	
 	// Update is called once per frame
@@ -32,48 +36,53 @@ public class ResulutionChanger : MonoBehaviour {
         {
             if (selectedRes != dropdown.value)
             {
-                ChangeResulution(dropdown.value);
-                selectedRes = dropdown.value;
+                CheckValue();
             }
         }
 	}
 
-    void ChangeResulution(int res)
+    void CheckValue()
     {
-        if (res == 0)
+        SelectResulution(dropdown.value, isFullscreened);
+        selectedRes = dropdown.value;
+    }
+
+    public void UpdateRes()
+    {
+        ChangeRes(resWidth, resHeight, isFullscreened, refreshRate);
+    }
+
+    void SelectResulution(int value, bool fullscreened)
+    {
+        switch (value)
         {
-            Screen.SetResolution(1920, 1080, fullscreened, 60);
-            resX = 1920;
-            resY = 1080;
-            refreshRate = 60;
+            case 0:
+                ChangeRes(1920, 1080, fullscreened, 60);
+                break;
+            case 1:
+                ChangeRes(1920, 1080, fullscreened, 120);
+                break;
+            case 2:
+                ChangeRes(1920, 1080, fullscreened, 144);
+                break;
+            case 3:
+                ChangeRes(1240, 720, fullscreened, 60);
+                break;
+            case 4:
+                ChangeRes(640, 480, fullscreened, 60);
+                break;
+            default:
+                Debug.LogError("Specified value can't be found: " + value);
+                break;
         }
-        else if (res == 1)
-        {
-            Screen.SetResolution(1920, 1080, fullscreened, 120);
-            resX = 1920;
-            resY = 1080;
-            refreshRate = 120;
-        }
-        else if (res == 2)
-        {
-            Screen.SetResolution(1920, 1080, fullscreened, 144);
-            resX = 1920;
-            resY = 1080;
-            refreshRate = 144;
-        }
-        else if (res == 3)
-        {
-            Screen.SetResolution(1240, 720, fullscreened, 60);
-            resX = 1240;
-            resY = 720;
-            refreshRate = 60;
-        }
-        else if (res == 4)
-        {
-            Screen.SetResolution(640, 480, fullscreened, 60);
-            resX = 640;
-            resY = 480;
-            refreshRate = 60;
-        }
+    }
+
+    void ChangeRes(int width, int height, bool fullscreened, int refrasheRate)
+    {
+        Screen.SetResolution(width, height, fullscreened, refrasheRate);
+        resWidth = width;
+        resHeight = height;
+        isFullscreened = fullscreened;
+        refreshRate = refrasheRate;
     }
 }

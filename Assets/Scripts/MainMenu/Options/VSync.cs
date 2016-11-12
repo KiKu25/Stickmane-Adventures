@@ -4,12 +4,11 @@ using UnityEngine.UI;
 
 public class VSync : MonoBehaviour {
 
-    //TODO: Make me ues xml
     //Lai zinatu kas tagat vai VSync ir ieslegts 
-    bool vSyncOn = true;
+    bool vSyncOn;
 
     //Toggle refrance
-    Toggle vSyncToggle;
+    Toggle toogle;
 
     //MainMenuController refrance
     MainMenuController mainMenuC;
@@ -17,11 +16,14 @@ public class VSync : MonoBehaviour {
     // Use this for initialization
     void Start () {
         //Atrod Toggle
-        vSyncToggle = gameObject.GetComponent<Toggle>();
+        toogle = gameObject.GetComponent<Toggle>();
 
         //Atrod MainMenuController
         mainMenuC = transform.parent.parent.gameObject.GetComponent<MainMenuController>();
-	}
+
+        toogle.isOn = Screen.fullScreen;
+        vSyncOn = Screen.fullScreen;
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -29,7 +31,7 @@ public class VSync : MonoBehaviour {
         if (mainMenuC.showsOtionsMenu == true)
         {
             //Parbaud vai vSyncOn
-            if (vSyncOn != vSyncToggle.isOn)
+            if (vSyncOn != toogle.isOn)
             {
                 ChangeVSync();
             }
