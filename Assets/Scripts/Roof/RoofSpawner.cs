@@ -18,8 +18,8 @@ public class RoofSpawner : MonoBehaviour
 
     float spriteWidthNextSpawn;
 
-    public Transform roofTemp;      //Pagaidu roofPrefab
-    public Transform lastRoofTemp;      //Pedejais roof ar dropoff
+    public Transform roof_1;      //Pagaidu roofPrefab
+    public Transform lastRoofTransform;      //Pedejais roof ar dropoff
     public Transform background;        //Backround
 
     SpriteRenderer backgroundSprite;    //Lai varetu uzinat sprite size
@@ -44,11 +44,11 @@ public class RoofSpawner : MonoBehaviour
 
         for (int i = 0; i < maxRoofs; i++)  //SpawnRoofs noteikut skaitu
         {
-            Instantiate(roofTemp, spawn, Quaternion.identity);  //spawnRoof 
+            Instantiate(roof_1, spawn, Quaternion.identity);  //spawnRoof 
             spawn = new Vector3(spawn.x + Random.Range(minRoofOffset, maxRoofOffset), Random.Range(minRoofY, maxRoofY), 0);     //Saglaba nakoso Vector3
         }
 
-        Instantiate(lastRoofTemp, spawn, Quaternion.identity);  //spawnLast roof
+        Instantiate(lastRoofTransform, spawn, Quaternion.identity);  //spawnLast roof
     }
 
     //Spawn backround ik pec notiekta offset
