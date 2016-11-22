@@ -21,7 +21,7 @@ public class MoneyDropoff : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         //Atrod player
-        //player = (GameObject.FindGameObjectWithTag("Player")).GetComponent<Player>();
+        player = (GameObject.FindGameObjectWithTag("Player")).GetComponent<Player>();
         //Atdod pareizo text field
         monyFild = GameObject.FindGameObjectWithTag("Money_Ui").GetComponent<Text>();
     }
