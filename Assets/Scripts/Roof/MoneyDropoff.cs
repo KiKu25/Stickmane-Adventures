@@ -4,7 +4,7 @@ using System.Collections;
 
 public class MoneyDropoff : MonoBehaviour {
 
-    public int totalMoney { get; protected set; }   //Kopeja nozakta nauda
+    public int totalMoneyThisSession { get; protected set; }   //Kopeja nozakta nauda
 
     //Bag transform
     Transform bag;
@@ -61,7 +61,7 @@ public class MoneyDropoff : MonoBehaviour {
     {
         bag = player.transform.GetChild(0);     //Dabu bag
         bagScript = bag.GetComponent<Bag>();    //Babu bagScript
-        totalMoney += bagScript.money;      //Dabu un set naudu
+        totalMoneyThisSession += bagScript.money;      //Dabu un set naudu
         Destroy(bag.gameObject);        //Iznicina bag
 
         player.hasBag = false;      //Seto kad player nav soma
@@ -71,6 +71,7 @@ public class MoneyDropoff : MonoBehaviour {
     //Atkjauno Ui
     void UpdateUi()
     {
-        monyFild.text = ("Money Stolen: " + totalMoney);        //Lai redzetu cik naudas nozakts
+        monyFild.text = ("Money Stolen: " + totalMoneyThisSession);        //Lai redzetu cik naudas nozakts
+        GameControl.control.moneyStolen += totalMoneyThisSession;
     }
 }

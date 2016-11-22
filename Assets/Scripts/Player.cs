@@ -3,24 +3,26 @@ using System.Collections;
 
 public class Player : MonoBehaviour {
 
+    public static Player player;
+
     public float maxRunSpeed = 6f;     //Player max run speed
     public float speed = 50f;   //Paatrinajaums
     public float jumpPower = 150f;  //Leksanas speks
 
     public bool grounded;   //Lai zinatu vai player ir uz zemes
-    public bool hasBag { get; set; } 
-    public bool facingRight { get; protected set; }
+    public bool hasBag { get; set; } //Lai ainatu vai player ir bag
+    public bool facingRight { get; protected set; } //Lai zinatu uz kuru pusi player skatas
 
     Rigidbody2D rb2d;   //Player rigedbody
 
-    Animator anim;
+    Animator anim;  //Player animation controller
 
 	// Use this for initialization
 	void Start () {
 
         rb2d = GetComponent<Rigidbody2D>();     //Dabu player rigedbody
-        anim = GetComponent<Animator>();
-        hasBag = false;
+        anim = GetComponent<Animator>();    //Dabu animation controller
+        hasBag = false;     //Player nav soma
 	}
 
     void Update()
