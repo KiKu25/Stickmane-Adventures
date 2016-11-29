@@ -11,8 +11,12 @@ public class GameControl : MonoBehaviour {
     public int moneyStolen { get; set; }
 
     public string curentSaveGame { get; set; }
+    public string defaultSaveGame { get; protected set; }
 
 	void Awake () {
+
+        defaultSaveGame = "deve";
+
         if (control == null)
         {
             DontDestroyOnLoad(gameObject);
@@ -28,6 +32,11 @@ public class GameControl : MonoBehaviour {
     {
         BinaryFormatter bf = new BinaryFormatter();
         FileStream file;
+
+        if (curentSaveGame == null)
+        {
+            curentSaveGame = defaultSaveGame;
+        }
 
         if (File.Exists(Application.persistentDataPath + "/" + curentSaveGame) == false)
         {

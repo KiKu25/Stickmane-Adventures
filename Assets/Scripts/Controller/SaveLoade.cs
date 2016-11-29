@@ -3,6 +3,8 @@ using System.Collections;
 
 public class SaveLoade : MonoBehaviour {
 
+    //A hacky way to save data;
+
 	public void Save()
     {
         GameControl.control.Save();

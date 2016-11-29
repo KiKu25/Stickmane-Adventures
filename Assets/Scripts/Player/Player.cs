@@ -30,12 +30,6 @@ public class Player : MonoBehaviour {
         anim.SetBool("Grounded", grounded);
         anim.SetFloat("Speed", Mathf.Abs(rb2d.velocity.x));
 
-        //TODO: Remove this
-        if (Input.GetKeyDown("escape"))
-        {
-            Application.Quit();
-        }
-
         if (Input.GetAxis("Horizontal") < -0.1f)
         {
             transform.localRotation = Quaternion.Euler(0, 180, 0);

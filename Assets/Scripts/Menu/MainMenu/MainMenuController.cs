@@ -47,7 +47,7 @@ public class MainMenuController : MonoBehaviour {
     {
         GameControl.control.curentSaveGame = saveName;
         //TODO: Make this make a new game
-        LoadeScene("_SCENE");
+        LoadeScene("MAP");
     }
 
     public void LoadeGame(string saveName)

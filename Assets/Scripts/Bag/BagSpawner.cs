@@ -9,10 +9,14 @@ public class BagSpawner : MonoBehaviour {
     public float maxX;
 
     public Transform bag;
+
+    GameObject bags;
     
 	// Use this for initialization
 	void Start () {
-        spawnBags(maxBags);
+        bags = new GameObject("Bags");
+
+        spawnBags(maxBags);  
 	}
 	
 	// Update is called once per frame
@@ -23,8 +27,12 @@ public class BagSpawner : MonoBehaviour {
     void spawnBags(int spawnCount = 6)
     {
         for (int i = 0; i < spawnCount; i++)
-        { 
-            Instantiate(bag, new Vector3(transform.position.x + Random.Range(minX, maxX), transform.position.y + 0.5f, transform.position.z), Quaternion.identity);
+        {
+            Transform bagTran;
+             
+            bagTran = (Transform)Instantiate(bag, new Vector3(transform.position.x + Random.Range(minX, maxX), transform.position.y + 0.5f, transform.position.z), Quaternion.identity);
+
+            bagTran.SetParent(bags.transform);
         }
     }
 }
