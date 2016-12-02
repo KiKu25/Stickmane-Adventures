@@ -14,13 +14,20 @@ public class Money : MonoBehaviour {
         moneyField = GetComponent<Text>();
 
         GameControl.control.Load();
-
-        Debug.Log(GetMoney());
 	}
 	
 	// Update is called once per frame
 	void Update () {
-	
+
+        money = GetMoney();
+
+        int curentMoney = 0;
+
+        if (curentMoney != money )
+        {
+            curentMoney = GetMoney();
+            UpdateUI();
+        }
 	}
 
     int GetMoney()

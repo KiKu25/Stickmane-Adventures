@@ -40,19 +40,38 @@ public class MainMenuController : MonoBehaviour {
                 SwitchMenu(lastMenu);
             }
         }
+
+        //TODO: Remove this for realese
+        if (LoadGameMenu.activeInHierarchy == true)
+        {
+            if (Input.GetKeyDown("f5"))
+            {
+                LoadDeve();
+            }
+        }
     }    
 
     //Lai uztaisitu jaunu speli
     public void NewGame(string saveName)
     {
-        GameControl.control.curentSaveGame = saveName;
+        GameControl.control.curentSaveGame = saveName;  //Set kuru save game izvlelejas
         //TODO: Make this make a new game
-        LoadeScene("MAP");
+        GameControl.control.DeleteFolder(saveName); //Izdzes ieprieksejo save game 
+        LoadeScene("MAP");  //Ielade MAP
     }
 
+    //Lai ieladetu speli
     public void LoadeGame(string saveName)
     {
-        GameControl.control.curentSaveGame = saveName;
+        GameControl.control.curentSaveGame = saveName;  //Set kuru save game izvlelejas
+        SceneManager.LoadScene("MAP");  //Ielade MAP
+    }
+
+    //TODO: Remove this for realese
+    void LoadDeve()
+    {
+        GameControl.control.curentSaveGame = "deve";  //Lai varetu izmantot deve files
+        SceneManager.LoadScene("MAP");  //Ielade MAP
     }
 
     //Izet no speles

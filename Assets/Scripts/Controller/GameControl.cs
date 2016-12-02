@@ -32,36 +32,49 @@ public class GameControl : MonoBehaviour {
     {
         BinaryFormatter bf = new BinaryFormatter();
         FileStream file;
+        Data data = new Data();
 
         if (curentSaveGame == null)
         {
             curentSaveGame = defaultSaveGame;
         }
 
-        if (File.Exists(Application.persistentDataPath + "/" + curentSaveGame) == false)
+        Debug.Log("Saving data");
+        if (CheckIfaFolderExists(curentSaveGame) == false)
         {
-            Directory.CreateDirectory(Application.persistentDataPath + "/" + curentSaveGame);
+            Debug.Log("Create a folder where to save data");
+            CreateFolder(curentSaveGame);
         }
 
-        if (File.Exists(Application.persistentDataPath  + "/" + curentSaveGame + "/save.dat") == false)
+        if (CheckIfaFileExists(curentSaveGame + "/save.dat") == false)
         {
+            Debug.Log("Create a file where to save data");
             file = File.Create(Application.persistentDataPath + "/" + curentSaveGame + "/save.dat");
         }
         else
         {
+            Debug.Log("Open a file where to save data");
             file = File.Open(Application.persistentDataPath + "/" + curentSaveGame + "/save.dat", FileMode.Open);
         }
 
-        Data data = new Data();
-        data.moneyStolen = moneyStolen;
+        
+        data.moneyStolen += moneyStolen;
 
         bf.Serialize(file, data);
         file.Close();
     }
-    
+
     public void Load()
     {
-        if (File.Exists(Application.persistentDataPath + "/" + curentSaveGame + "/save.dat"))
+        if (curentSaveGame == "deve")
+        {
+            if (CheckIfaFileExists(curentSaveGame + "/save.dat") == false)
+            {
+                CreateDeveGame(); 
+            }
+        }
+
+        if (CheckIfaFileExists(curentSaveGame + "/save.dat"))
         {
             BinaryFormatter bf = new BinaryFormatter();
             FileStream file = File.Open(Application.persistentDataPath + "/" + curentSaveGame + "/save.dat", FileMode.Open);
@@ -70,7 +83,81 @@ public class GameControl : MonoBehaviour {
 
             moneyStolen = data.moneyStolen;
         }
-    }	
+    }
+
+    void CreateDeveGame()
+    {
+        BinaryFormatter bf = new BinaryFormatter();
+        FileStream file;
+        Data data = new Data();
+
+        if (curentSaveGame == null)
+        {
+            curentSaveGame = defaultSaveGame;
+        }
+
+        if (CheckIfaFolderExists(curentSaveGame) == false)
+        {
+            CreateFolder(curentSaveGame);
+        }
+
+        if (CheckIfaFileExists(curentSaveGame + "/save.dat") == false)
+        {
+            Debug.Log("Create a file where to save data");
+            file = File.Create(Application.persistentDataPath + "/" + curentSaveGame + "/save.dat");
+
+            data.moneyStolen = 999999999;
+            bf.Serialize(file, data);
+
+            file.Close();
+        }       
+    }
+
+    public void DeleteFolder(string pathFromPersistentDataPath)
+    {
+        if (Directory.Exists(Application.persistentDataPath + "/" + pathFromPersistentDataPath))
+        {
+            Directory.Delete(Application.persistentDataPath + "/" + pathFromPersistentDataPath);
+        }
+    }
+
+    public void Deletefile(string pathFromPersistentDataPath)
+    {
+        if (File.Exists(Application.persistentDataPath + "/" + pathFromPersistentDataPath))
+        {
+            File.Delete(Application.persistentDataPath + "/" + pathFromPersistentDataPath);
+        }
+    }
+
+    public bool CheckIfaFolderExists(string pathFromPersistentDataPath)
+    {
+        if (Directory.Exists(Application.persistentDataPath + "/" + pathFromPersistentDataPath) == false)
+        {
+            return false;
+        }
+
+        return true;
+    }
+
+    public bool CheckIfaFileExists(string pathFromPersistentDataPath)
+    {
+        if (File.Exists(Application.persistentDataPath + "/" + pathFromPersistentDataPath) == false)
+        {
+            return false;
+        }
+
+        return true;
+    }
+
+    public void CreateFolder(string pathFromPersistentDataPath)
+    {
+        Directory.CreateDirectory(Application.persistentDataPath + "/" + pathFromPersistentDataPath);
+    }
+
+    public void CreateFile(string pathFromPersistentDataPath)
+    {
+        File.Create(Application.persistentDataPath + "/" + pathFromPersistentDataPath);
+    }
 }
 
 [Serializable]
