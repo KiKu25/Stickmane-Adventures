@@ -5,15 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuController : MonoBehaviour {
 
-    GameObject MainMenu;
-    GameObject OptionsMenu;
-    GameObject NewGameMenu;
-    GameObject LoadGameMenu;
-    
-    public bool showsOtionsMenu { get; protected set; }
-    public bool showsMainMenu { get; protected set; }
-    public bool showsNewGameMenu { get; protected set; }
-    public bool showsLoadeMenu { get; protected set; }
+    public GameObject MainMenu { get; protected set; }
+    public GameObject OptionsMenu { get; protected set; }
+    public GameObject NewGameMenu { get; protected set; }
+    public GameObject LoadGameMenu { get; protected set; }
 
     string lastMenu;
 
@@ -31,7 +26,7 @@ public class MainMenuController : MonoBehaviour {
     {
         if (Input.GetKeyDown("escape"))
         {
-            if (showsMainMenu || lastMenu == null)
+            if (MainMenu.activeInHierarchy || lastMenu == null)
             {
                 Application.Quit();
             }
@@ -56,6 +51,7 @@ public class MainMenuController : MonoBehaviour {
     {
         GameControl.control.curentSaveGame = saveName;  //Set kuru save game izvlelejas
         //TODO: Make this make a new game
+        Debug.Log("Delete save game");
         GameControl.control.DeleteFolder(saveName); //Izdzes ieprieksejo save game 
         LoadeScene("MAP");  //Ielade MAP
     }
@@ -84,83 +80,55 @@ public class MainMenuController : MonoBehaviour {
     {
         toMenu.ToLower();
 
-        if (toMenu == "main_menu" && showsMainMenu == false)
+        if (toMenu == "main_menu" && MainMenu.activeInHierarchy == false)
         {
             SetLasMenu();
             MainMenu.SetActive(true);
-            showsMainMenu = true;
-
             OptionsMenu.SetActive(false);
-            showsOtionsMenu = false;
-
             NewGameMenu.SetActive(false);
-            showsNewGameMenu = false;
-
             LoadGameMenu.SetActive(false);
-            showsLoadeMenu = false;
         }
-        else if (toMenu == "option_menu" && showsOtionsMenu == false)
+        else if (toMenu == "option_menu" && OptionsMenu.activeInHierarchy == false)
         {
             SetLasMenu();
             MainMenu.SetActive(false);
-            showsMainMenu = false;
-
             OptionsMenu.SetActive(true);
-            showsOtionsMenu = true;
-
             NewGameMenu.SetActive(false);
-            showsNewGameMenu = false;
-
             LoadGameMenu.SetActive(false);
-            showsLoadeMenu = false;
         }
-        else if (toMenu == "new_game" && showsNewGameMenu == false)
+        else if (toMenu == "new_game" && NewGameMenu.activeInHierarchy == false)
         {
             SetLasMenu();
             MainMenu.SetActive(false);
-            showsMainMenu = false;
-
             OptionsMenu.SetActive(false);
-            showsOtionsMenu = false;
-
             NewGameMenu.SetActive(true);
-            showsNewGameMenu = true;
-
             LoadGameMenu.SetActive(false);
-            showsLoadeMenu = false;
         }
-        else if (toMenu == "loade_game" && showsLoadeMenu == false)
+        else if (toMenu == "loade_game" && LoadGameMenu.activeInHierarchy == false)
         {
             SetLasMenu();
             MainMenu.SetActive(false);
-            showsMainMenu = false;
-
             OptionsMenu.SetActive(false);
-            showsOtionsMenu = false;
-
             NewGameMenu.SetActive(false);
-            showsNewGameMenu = false;
-
             LoadGameMenu.SetActive(true);
-            showsLoadeMenu = true;
         }
     }
 
     void SetLasMenu()
     {
-        if (showsMainMenu)
+        if (MainMenu.activeInHierarchy)
         {
             lastMenu = "main_menu";
         }
-        else if (showsOtionsMenu)
+        else if (OptionsMenu.activeInHierarchy)
         {
             lastMenu = "option_menu";
         }
-        else if (showsNewGameMenu)
+        else if (NewGameMenu.activeInHierarchy)
         {
             lastMenu = "new_game";
         }
-        else if (showsLoadeMenu)
+        else if (LoadGameMenu.activeInHierarchy)
         {
             lastMenu = "loade_game";
         }

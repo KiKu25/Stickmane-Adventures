@@ -28,7 +28,7 @@ public class VSync : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         //Darbojas ja skatas uz options menu
-        if (mainMenuC.showsOtionsMenu == true)
+        if (mainMenuC.OptionsMenu.activeInHierarchy == true)
         {
             //Parbaud vai vSyncOn
             if (vSyncOn != toogle.isOn)

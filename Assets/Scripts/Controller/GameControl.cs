@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using UnityEditor;
 using System;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
@@ -115,17 +116,17 @@ public class GameControl : MonoBehaviour {
 
     public void DeleteFolder(string pathFromPersistentDataPath)
     {
-        if (Directory.Exists(Application.persistentDataPath + "/" + pathFromPersistentDataPath))
+        if (CheckIfaFolderExists(Application.persistentDataPath + "/" + pathFromPersistentDataPath))
         {
-            Directory.Delete(Application.persistentDataPath + "/" + pathFromPersistentDataPath);
+            FileUtil.DeleteFileOrDirectory(Application.persistentDataPath + "/" + pathFromPersistentDataPath);
         }
     }
 
-    public void Deletefile(string pathFromPersistentDataPath)
+    public void DeleteFile(string pathFromPersistentDataPath)
     {
-        if (File.Exists(Application.persistentDataPath + "/" + pathFromPersistentDataPath))
+        if (CheckIfaFileExists(Application.persistentDataPath + "/" + pathFromPersistentDataPath))
         {
-            File.Delete(Application.persistentDataPath + "/" + pathFromPersistentDataPath);
+            FileUtil.DeleteFileOrDirectory(Application.persistentDataPath + "/" + pathFromPersistentDataPath);
         }
     }
 

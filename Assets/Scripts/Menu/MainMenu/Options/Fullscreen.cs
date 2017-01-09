@@ -34,7 +34,7 @@ public class Fullscreen : MonoBehaviour {
     void Update () {
 
         //Darbojas ja skatas uz options menu
-        if (mainMenuC.showsOtionsMenu == true)
+        if (mainMenuC.MainMenu.activeInHierarchy == true)
         {
             //Parbaud vai vSyncOn
             if (fullscreened != toogle.isOn)

@@ -9,6 +9,8 @@ public class Respawner : MonoBehaviour
     GameObject playerRespawner;
     GameObject bagRespawner;
 
+    Bag bagS;
+
     // Use this for initialization
     void Start()
     {
@@ -21,6 +23,9 @@ public class Respawner : MonoBehaviour
 
         if (player == null)
             player = GameObject.FindGameObjectWithTag("Player");
+
+        if (bagS == null)
+            bagS = GameObject.FindGameObjectWithTag("Bag").GetComponent<Bag>();
     }
 
     void OnTriggerEnter2D(Collider2D col)
@@ -32,6 +37,7 @@ public class Respawner : MonoBehaviour
         else if (col.CompareTag("Bag"))
         {
             col.gameObject.transform.position = new Vector3(bagRespawner.transform.position.x, bagRespawner.transform.position.y, bagRespawner.transform.position.z);
+            bagS.transform.rotation = new Quaternion(transform.rotation.x, transform.rotation.y, 0, transform.rotation.w);
         }
     }
 
@@ -44,6 +50,7 @@ public class Respawner : MonoBehaviour
         else if (col.CompareTag("Bag"))
         {
             col.gameObject.transform.position = new Vector3(bagRespawner.transform.position.x, bagRespawner.transform.position.y, bagRespawner.transform.position.z);
+            bagS.transform.rotation = new Quaternion(transform.rotation.x, transform.rotation.y, 0, transform.rotation.w);
         }
     }
 }

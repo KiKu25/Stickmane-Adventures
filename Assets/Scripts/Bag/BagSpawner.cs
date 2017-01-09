@@ -11,12 +11,16 @@ public class BagSpawner : MonoBehaviour {
     public Transform bag;
 
     GameObject bags;
+    Bag bagScript;
     
 	// Use this for initialization
 	void Start () {
         bags = new GameObject("Bags");
 
-        spawnBags(maxBags);  
+        spawnBags(maxBags);
+
+        bagScript = GameObject.FindGameObjectWithTag("Bag").GetComponent<Bag>();
+
 	}
 	
 	// Update is called once per frame

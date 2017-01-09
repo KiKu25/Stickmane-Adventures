@@ -32,7 +32,7 @@ public class ResulutionChanger : MonoBehaviour {
 	// Update is called once per frame
 	void Update() {
         //Darbojas ja skats uz options menu
-        if (mainMenuC.showsOtionsMenu == true)
+        if (mainMenuC.OptionsMenu.activeInHierarchy == true)
         {
             if (selectedRes != dropdown.value)
             {

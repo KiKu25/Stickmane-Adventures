@@ -24,6 +24,7 @@ public class Bag : MonoBehaviour
 
         //Dabu rb2d
         rd2d = GetComponent<Rigidbody2D>();
+
     }
 
     //Lai zinatu vai player pacel somu
