@@ -13,6 +13,8 @@ public class Player : MonoBehaviour {
     public bool hasBag { get; set; } //Lai ainatu vai player ir bag
     public bool facingRight { get; protected set; } //Lai zinatu uz kuru pusi player skatas
 
+    public string animationName;
+
     Rigidbody2D rb2d;   //Player rigedbody
 
     Animator anim;  //Player animation controller
@@ -23,6 +25,10 @@ public class Player : MonoBehaviour {
         rb2d = GetComponent<Rigidbody2D>();     //Dabu player rigedbody
         anim = GetComponent<Animator>();    //Dabu animation controller
         hasBag = false;     //Player nav soma
+
+        animationName = GameControl.control.playerAnimationName;
+
+        anim.runtimeAnimatorController = Resources.Load("Animations/Player/" + animationName) as RuntimeAnimatorController;
 	}
 
     void Update()
@@ -55,8 +61,8 @@ public class Player : MonoBehaviour {
             rb2d.drag = 0;
         }
     }
-	
-	void FixedUpdate () {
+
+    void FixedUpdate () {
 
         float horizontal = Input.GetAxis("Horizontal");
 

@@ -14,9 +14,13 @@ public class GameControl : MonoBehaviour {
     public string curentSaveGame { get; set; }
     public string defaultSaveGame { get; protected set; }
 
-	void Awake () {
+    public string playerAnimationName { get; set; }
+    public string defaultPlayerAnimationName { get; protected set; }
+
+    void Awake () {
 
         defaultSaveGame = "deve";
+        defaultPlayerAnimationName = "Player_Christmas";
 
         if (control == null)
         {
@@ -27,18 +31,23 @@ public class GameControl : MonoBehaviour {
         {
             Destroy(gameObject);
         }
-	}
+
+        if (curentSaveGame == null)
+        {
+            curentSaveGame = defaultSaveGame;
+        }
+
+        if (playerAnimationName == null)
+        {
+            playerAnimationName = defaultPlayerAnimationName;
+        }
+    }
 
     public void Save()
     {
         BinaryFormatter bf = new BinaryFormatter();
         FileStream file;
         Data data = new Data();
-
-        if (curentSaveGame == null)
-        {
-            curentSaveGame = defaultSaveGame;
-        }
 
         Debug.Log("Saving data");
         if (CheckIfaFolderExists(curentSaveGame) == false)
@@ -60,6 +69,7 @@ public class GameControl : MonoBehaviour {
 
         
         data.moneyStolen += moneyStolen;
+        data.selectedPlayerAnimationName = playerAnimationName;
 
         bf.Serialize(file, data);
         file.Close();
@@ -83,6 +93,7 @@ public class GameControl : MonoBehaviour {
             file.Close();
 
             moneyStolen = data.moneyStolen;
+            playerAnimationName = data.selectedPlayerAnimationName;
         }
     }
 
@@ -164,4 +175,6 @@ public class GameControl : MonoBehaviour {
 [Serializable]
 class Data {
     public int moneyStolen;
+
+    public string selectedPlayerAnimationName;
 }
