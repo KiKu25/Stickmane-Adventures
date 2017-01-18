@@ -67,8 +67,13 @@ public class GameControl : MonoBehaviour {
             file = File.Open(Application.persistentDataPath + "/" + curentSaveGame + "/save.dat", FileMode.Open);
         }
 
-        
-        data.moneyStolen += moneyStolen;
+        //Japievino seit lai varetu saglabat
+
+        int tempIntHolder;
+
+        tempIntHolder = (int)StringToInt64(data.moneyStolen);
+        data.moneyStolen += Int64ToString(moneyStolen);
+
         data.selectedPlayerAnimationName = playerAnimationName;
 
         bf.Serialize(file, data);
@@ -92,7 +97,8 @@ public class GameControl : MonoBehaviour {
             Data data = (Data)bf.Deserialize(file);
             file.Close();
 
-            moneyStolen = data.moneyStolen;
+            //Japivieno seit lai ieladetu
+            moneyStolen = (int)StringToInt64(data.moneyStolen);
             playerAnimationName = data.selectedPlayerAnimationName;
         }
     }
@@ -118,7 +124,7 @@ public class GameControl : MonoBehaviour {
             Debug.Log("Create a file where to save data");
             file = File.Create(Application.persistentDataPath + "/" + curentSaveGame + "/save.dat");
 
-            data.moneyStolen = 999999999;
+            data.moneyStolen = Int64ToString(99999999999999999);
             bf.Serialize(file, data);
 
             file.Close();
@@ -170,11 +176,20 @@ public class GameControl : MonoBehaviour {
     {
         File.Create(Application.persistentDataPath + "/" + pathFromPersistentDataPath);
     }
+
+    public Int64 StringToInt64(string number)
+    {
+        return System.Convert.ToInt64(number);
+    }
+
+    public string Int64ToString(Int64 number)
+    {
+        return System.Convert.ToString(number);
+    }
 }
 
 [Serializable]
 class Data {
-    public int moneyStolen;
-
+    public string moneyStolen;
     public string selectedPlayerAnimationName;
 }

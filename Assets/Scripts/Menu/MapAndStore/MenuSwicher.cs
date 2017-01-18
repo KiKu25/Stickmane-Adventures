@@ -41,25 +41,32 @@ public class MenuSwicher : MonoBehaviour {
 
         if (toMenu == "map_menu" && showsMapMenu == false)
         {
+
+            if (showsStoreMenu == true)
+            {
+                GameControl.control.Save();
+            }
+
             SetLasMenu();
             MapMenu.SetActive(true);
             showsMapMenu = true;
 
             StoreMenu.SetActive(false);
-            showsStoreMenu = false;
-
-            GameControl.control.Save();
+            showsStoreMenu = false;           
         }
         else if (toMenu == "store_menu" && showsStoreMenu == false)
         {
+            if (showsMapMenu == true)
+            {
+                GameControl.control.Load();
+            }
+
             SetLasMenu();
             MapMenu.SetActive(false);
             showsMapMenu = false;
 
             StoreMenu.SetActive(true);
-            showsStoreMenu = true;
-
-            GameControl.control.Load();
+            showsStoreMenu = true;   
         }
     }
 

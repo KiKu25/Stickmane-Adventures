@@ -10,6 +10,7 @@ public class PausMenu : MonoBehaviour {
 	void Start () {
 
         menu = transform.GetChild(1).gameObject;
+        Time.timeScale = 1;
 	}
 	
 	// Update is called once per frame
