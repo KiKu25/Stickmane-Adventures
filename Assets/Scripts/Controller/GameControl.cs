@@ -1,6 +1,6 @@
 using UnityEngine;
 using System.Collections;
-using UnityEditor;
+//using UnityEditor;
 using System;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
@@ -131,11 +131,25 @@ public class GameControl : MonoBehaviour {
         }       
     }
 
+    public void CreateNewGameFolder(string saveName)
+    {
+        if (CheckIfaFolderExists(saveName) == false)
+        {
+            CreateFolder(saveName);
+        }
+    }
+
     public void DeleteFolder(string pathFromPersistentDataPath)
     {
         if (CheckIfaFolderExists(Application.persistentDataPath + "/" + pathFromPersistentDataPath))
         {
-            FileUtil.DeleteFileOrDirectory(Application.persistentDataPath + "/" + pathFromPersistentDataPath);
+            Debug.Log(Application.persistentDataPath + "/" + pathFromPersistentDataPath);
+            //FileUtil.DeleteFileOrDirectory(Application.persistentDataPath + "/" + pathFromPersistentDataPath);
+           Directory.Delete(Application.persistentDataPath + "/" + pathFromPersistentDataPath, true);
+        }
+        else
+        {
+            Debug.Log("File dosnt exist");
         }
     }
 
@@ -143,28 +157,29 @@ public class GameControl : MonoBehaviour {
     {
         if (CheckIfaFileExists(Application.persistentDataPath + "/" + pathFromPersistentDataPath))
         {
-            FileUtil.DeleteFileOrDirectory(Application.persistentDataPath + "/" + pathFromPersistentDataPath);
+            //FileUtil.DeleteFileOrDirectory(Application.persistentDataPath + "/" + pathFromPersistentDataPath);
+            Directory.Delete(Application.persistentDataPath + "/" + pathFromPersistentDataPath);
         }
     }
 
     public bool CheckIfaFolderExists(string pathFromPersistentDataPath)
     {
-        if (Directory.Exists(Application.persistentDataPath + "/" + pathFromPersistentDataPath) == false)
+        if (Directory.Exists(Application.persistentDataPath + "/" + pathFromPersistentDataPath) == true)
         {
-            return false;
+            return true;
         }
 
-        return true;
+        return false;
     }
 
     public bool CheckIfaFileExists(string pathFromPersistentDataPath)
     {
-        if (File.Exists(Application.persistentDataPath + "/" + pathFromPersistentDataPath) == false)
+        if (File.Exists(Application.persistentDataPath + "/" + pathFromPersistentDataPath) == true)
         {
-            return false;
+            return true;
         }
 
-        return true;
+        return false;
     }
 
     public void CreateFolder(string pathFromPersistentDataPath)

@@ -23,10 +23,15 @@ public class Money : MonoBehaviour {
 
         int curentMoney = 0;
 
-        if (curentMoney != money )
+        if (money == 0)
+        {
+            curentMoney = 0;
+            UpdateUI(curentMoney);
+        }
+        else if (curentMoney != money )
         {
             curentMoney = GetMoney();
-            UpdateUI();
+            UpdateUI(curentMoney);
         }
 	}
 
@@ -35,8 +40,8 @@ public class Money : MonoBehaviour {
         return GameControl.control.moneyStolen;
     }
 
-    void UpdateUI()
+    void UpdateUI(int money)
     {
-        moneyField.text = "Money: " + GetMoney();
+        moneyField.text = "Money: " + money;
     }
 }

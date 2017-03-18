@@ -52,7 +52,8 @@ public class MainMenuController : MonoBehaviour {
         GameControl.control.curentSaveGame = saveName;  //Set kuru save game izvlelejas
         //TODO: Make this make a new game
         Debug.Log("Delete save game");
-        GameControl.control.DeleteFolder(saveName); //Izdzes ieprieksejo save game 
+        GameControl.control.DeleteFolder(saveName); //Izdzes ieprieksejo save game
+        GameControl.control.Save();
         LoadeScene("MAP");  //Ielade MAP
     }
 
